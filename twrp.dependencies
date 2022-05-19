@@ -1,8 +1,8 @@
 [
   {
     "remote": "TeamWin",
-    "repository": "android_kernel_motorola_sm7250",
-    "target_path": "kernel/motorola/sm7250",
+    "repository": "android_kernel_motorola_sm6150",
+    "target_path": "kernel/motorola/sm6150",
     "branch": "android-11"
   }
 ]

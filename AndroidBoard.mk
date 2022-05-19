@@ -15,25 +15,22 @@
 #
 
 INSTALLED_KERNEL_TARGET := $(PRODUCT_OUT)/kernel
-recovery_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.img
+recovery_uncompressed_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.cpio
 
 RECOVERY_KMOD_TARGETS := \
+    exfat.ko \
     utags.ko \
+    sensors_class.ko \
     mmi_annotate.ko \
     mmi_info.ko \
     tzlog_dump.ko \
     mmi_sys_temp.ko \
-    qpnp-power-on-mmi.ko \
-    wl2864c.ko \
-    qpnp-smbcharger-mmi.ko \
-    mcDrvModule.ko \
-    exfat.ko \
-    aw8695.ko \
-    sensors_class.ko \
-    mmi_relay.ko \
+    focaltech_0flash_mmi.ko \
     sx933x_sar.ko \
-    nova_0flash_mmi.ko \
-    mmi_sigprint.ko
+    aw8695.ko \
+    tps61280.ko \
+    qpnp-smbcharger-mmi.ko \
+#    qpnp-power-on-mmi.ko
 
 INSTALLED_RECOVERY_KMOD_TARGETS := $(RECOVERY_KMOD_TARGETS:%=$(TARGET_RECOVERY_ROOT_OUT)/vendor/lib/modules/%)
 $(INSTALLED_RECOVERY_KMOD_TARGETS): $(INSTALLED_KERNEL_TARGET)
@@ -41,4 +38,4 @@ $(INSTALLED_RECOVERY_KMOD_TARGETS): $(INSTALLED_KERNEL_TARGET)
 	@mkdir -p $(dir $@)
 	cp $(@F:%=$(TARGET_OUT_VENDOR)/lib/modules/%) $(TARGET_RECOVERY_ROOT_OUT)/vendor/lib/modules/
 
-$(recovery_ramdisk): $(INSTALLED_RECOVERY_KMOD_TARGETS)
+$(recovery_uncompressed_ramdisk): $(INSTALLED_RECOVERY_KMOD_TARGETS)

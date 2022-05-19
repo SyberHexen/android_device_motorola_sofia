@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_nairo.mk
+    $(LOCAL_DIR)/twrp_sofia.mk
 
 COMMON_LUNCH_CHOICES := \
-    twrp_nairo-user \
-    twrp_nairo-userdebug \
-    twrp_nairo-eng
+    twrp_sofia-user \
+    twrp_sofia-userdebug \
+    twrp_sofia-eng

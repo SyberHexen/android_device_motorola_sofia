@@ -23,20 +23,20 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-DEVICE_PATH := device/motorola/nairo
+DEVICE_PATH := device/motorola/sofia
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := lito
+TARGET_BOOTLOADER_BOARD_NAME := trinket
 TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Platform
-TARGET_BOARD_PLATFORM := lito
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno619
+TARGET_BOARD_PLATFORM := trinket
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno610
 TARGET_USES_64_BIT_BINDER := true
 TARGET_SUPPORTS_64_BIT_APPS := true
 BUILD_BROKEN_DUP_RULES := true
-QCOM_BOARD_PLATFORMS += lito
+QCOM_BOARD_PLATFORMS += trinket
 
 # Architecture
 TARGET_ARCH := arm64
@@ -44,12 +44,14 @@ TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT_RUNTIME := kryo260
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-2a
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a75
+TARGET_2ND_CPU_VARIANT := generic
+TARGET_2ND_CPU_VARIANT_RUNTIME := kryo260
 
 TARGET_USES_HARDWARE_QCOM_BOOTCTRL := true
 
@@ -58,6 +60,7 @@ BOARD_PROVIDES_GPTUTILS := true
 
 # Kernel
 BOARD_BOOT_HEADER_VERSION := 2
+BOARD_DTB_OFFSET := 0x01f00000
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE += \
     console=ttyMSM0,115200,n8  \
@@ -68,11 +71,11 @@ BOARD_KERNEL_CMDLINE += \
     video=vfb:640x400,bpp=32,memsize=3072000 \
     msm_rtb.filter=0x237  \
     service_locator.enable=1 \
-    androidboot.usbcontroller=a600000.dwc3 \
+    androidboot.usbcontroller=4e00000.dwc3 \
     swiotlb=2048 \
     loop.max_part=7 \
     cgroup.memory=nokmem,nosocket \
-    androidboot.boot_devices=soc/1d84000.ufshc \
+    androidboot.boot_devices=soc/4744000.sdhci \
     firmware_class.path=/vendor/firmware_mnt/image
 # For the love of all that is holy, please do not include this in your ROM unless you really want TWRP to not work correctly!
 BOARD_KERNEL_CMDLINE += androidboot.fastboot=1
@@ -82,13 +85,15 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
+
+BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-TARGET_KERNEL_VERSION := 4.19
+TARGET_KERNEL_VERSION := 4.14
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CONFIG := vendor/nairo_defconfig
-TARGET_KERNEL_SOURCE := kernel/motorola/sm7250
+TARGET_KERNEL_CONFIG := vendor/sofia_defconfig
+TARGET_KERNEL_SOURCE := kernel/motorola/sm6125
 TARGET_KERNEL_ADDITIONAL_FLAGS += \
     DTC_PREBUILT=true \
     DTC=$(shell pwd)/prebuilts/misc/$(HOST_OS)-x86/dtc/dtc \
@@ -96,20 +101,19 @@ TARGET_KERNEL_ADDITIONAL_FLAGS += \
     MKDTIMG=$(shell pwd)/prebuilts/misc/$(HOST_OS)-x86/libufdt/mkdtimg
 
 # Partitions
-BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296     #    98304
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 104857600 #    102400
-BOARD_DTBOIMG_PARTITION_SIZE := 8388608         #    8192
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864      #    98304
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864  #    102400
+BOARD_DTBOIMG_PARTITION_SIZE := 25165824        #    8192
 BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 536870912
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 10737418240
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 
 # Super
-BOARD_SUPER_PARTITION_SIZE := 8690597888
+BOARD_SUPER_PARTITION_SIZE := 8925478912
 BOARD_SUPER_PARTITION_GROUPS := motorola_dynamic_partitions
-BOARD_MOTOROLA_DYNAMIC_PARTITIONS_SIZE := 4341104640
+BOARD_MOTOROLA_DYNAMIC_PARTITIONS_SIZE := 4462735360
 BOARD_MOTOROLA_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     system \
     product \
@@ -190,6 +194,7 @@ VENDOR_SECURITY_PATCH := 2099-12-31
 TW_INCLUDE_CRYPTO := true
 BOARD_USES_QCOM_FBE_DECRYPTION := true
 BOARD_USES_METADATA_PARTITION := true
+TW_USE_FSCRYPT_POLICY := 1
 
 # Extras
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop

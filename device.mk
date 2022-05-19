@@ -22,7 +22,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # define hardware platform
-PRODUCT_PLATFORM := lito
+PRODUCT_PLATFORM := trinket
+
+LOCAL_PATH := device/motorola/sofia
 
 # A/B support
 AB_OTA_UPDATER := true
@@ -44,9 +46,7 @@ PRODUCT_PACKAGES += \
     otapreopt_script \
     cppreopts.sh \
     update_engine \
-    update_verifier
-
-PRODUCT_PACKAGES += \
+    update_verifier \
     bootctrl.$(PRODUCT_PLATFORM) \
     update_engine_sideload
 

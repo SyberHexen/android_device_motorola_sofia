@@ -1,26 +1,26 @@
-# TWRP Device configuration for moto g 5G plus
+# TWRP Device configuration for moto g power (2020)
 
 ## Device specifications
 
 Basic   | Spec Sheet
 -------:|:-------------------------
-CPU     | Octa-core (1x2.4 GHz Kryo 475 Prime & 1x2.2 GHz Kryo 475 Gold & 6x1.8 GHz Kryo 475 Silver)
-CHIPSET | Qualcomm SM7250 Snapdragon 765G
-GPU     | Adreno 620
-Memory  | 4 / 8GB
+CPU     | Octa-core (4x2.0 GHz Kryo 260 Gold & 4x1.8 GHz Kryo 260 Silver)
+CHIPSET | Qualcomm SDM665 Snapdragon 665
+GPU     | Adreno 610
+Memory  | 4GB
 Shipped Android Version | 10
-Storage | 64/128GB
+Storage | 64GB
 Battery | 5000 mAh
-Dimensions | 161.6 x 71.1 x 9.3 mm
-Display | 1080 x 2520 pixels, 6.7" LCD, 90Hz, HDR10
-Rear Camera  | 48 MP + 5 MP + 8 MP + 2 MP
-Front Camera | 16 MP + 8 MP
+Dimensions | 159.9 x 75.8 x 9.6 mm
+Display | 1080 x 2300 pixels, 6.4" IPS LCD
+Rear Camera  | 16 MP + 8 MP + 2 MP
+Front Camera | 16 MP
 
-![Device Picture](https://fdn2.gsmarena.com/vv/pics/motorola/motorola-moto-g-5g-plus-03.jpg)
+![Device Picture](https://fdn2.gsmarena.com/vv/pics/motorola/motorola-moto-g-power-1.jpg)
 
 ```sh
 . build/envsetup.sh
-lunch twrp_kiev-eng
+lunch twrp_sofia-eng
 mka adbd -j$(nproc --all) recoveryimage
 ```
 
